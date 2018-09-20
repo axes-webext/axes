@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>axes settings page</title>
+    <script src="dist/settings.js"></script>
+    <script src="lib/mousetrap.min.js"></script>
+    <script src="lib/sortable.min.js"></script>
+    <script src="lib/mousetrap-record.min.js"></script>
+    <script src="lib/fileSaver.min.js"></script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div>
+
+      <div id="tabs-container"></div>
+
+      <h1 id="top-buttons">
+        <button class="reset button" id="reset-all" title="Reset all settings to defaults">reset all</button>
+        <button class="reload reload-all button" id="reload-all" title="Reload last saved versions of all sections">reload all</button>
+        <button class="save button" id="save-all" title="Save all sections">save all</button>
+
+        <span style="float:right">
+          <button class="button backup" id="backup-download">backup</button>
+          <button class="button restore" id="backup-upload">restore</button>
+          <input type="file" style="display:none;" id="backup-upload-input">
+        </span>
+      </h1>
+
+      <div class="sect">
+        <h1 class="sect-title">User manual</h1>
+        <span class="no-top-buttons"></span>
+        <!-- @include manual.html -->
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">General settings</h1>
+        <h4>Interactive mode</h4>
+        On scroll:
+        <select id="on-scroll">
+          <option value="exit">Exit interactive mode</option>
+          <option value="restore">Leave interactive mode, scroll, then enter again</option>
+          <option value="prevent">Prevent scrolling</option>
+        </select>
+        <br>
+        <input id="exit-on-resize" type="checkbox"><label for="exit-on-resize">Do not restore interactive mode after window resizing</label>
+        <br>
+        Input field initial position:
+        <select id="input-position">
+          <option value="bottom">Bottom</option>
+          <option value="top">Top</option>
+        </select>
+        (can be changed using <span class="quot">ctrl+up</span> or <span class="quot">ctrl+down</span>)
+        <br>
+        <input id="autoclose-quotes" type="checkbox"><label for="autoclose-quotes">Close quotes and backtick quotes automatically</label>
+        <br>
+        <input id="autoclose-brackets" type="checkbox"><label for="autoclose-brackets">Close brackets automatically</label>
+        <br>
+        <h4>Labels</h4>
+        <div class="container" id="labels-container">
+          <table id="labels-table">
+            <tr>
+              <td>Alphabet</td>
+              <td>
+                <input id="label-alphabet">
+              </td>
+            </tr>
+            <tr>
+              <td>Presets:</td>
+              <td id="label-aplhabet-presets">
+              </td>
+            </tr>
+            <tr>
+              <td>Font</td>
+              <td>
+                <input id="label-font">
+                <span id="label-font-preview">Font preview</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Fill color</td>
+              <td>
+                <input id="label-fill-color">
+              </td>
+            </tr>
+            <tr>
+              <td>Text color</td>
+              <td>
+                <input id="label-text-color">
+              </td>
+            </tr>
+            <tr>
+              <td>Blink interval (ms)</td>
+              <td>
+                <input id="label-blinking-interval" value="600">
+              </td>
+            </tr>
+            <tr>
+              <td>Label padding</td>
+              <td>
+                <table>
+                  <tr>
+                    <td></td>
+                    <td><input type="number" class="label-padding"></td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><input type="number" class="label-padding"></td></td>
+                    <td>[label]</td>
+                    <td><input type="number" class="label-padding"></td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td><input type="number" class="label-padding"></td></td>
+                    <td></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h3>
+          <button class="reset button" id="reset-general">reset</button>
+          <button class="reload button" id="reload-general">reload</button>
+          <button class="save button" id="save-general">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Modifiers</h1>
+        <div class="container" id="modifiers-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-modifiers">reset</button>
+          <button class="reload button" id="reload-modifiers">reload</button>
+          <button class="save button" id="save-modifiers">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Action autodetection</h1>
+        <div class="container" id="autodetection-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-autodetection">reset</button>
+          <button class="reload button" id="reload-autodetection">reload</button>
+          <button class="save button" id="save-autodetection">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Hotkeys</h1>
+        <div class="container" id="hotkeys-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-hotkeys">reset</button>
+          <button class="reload button" id="reload-hotkeys">reload</button>
+          <button class="save button" id="save-hotkeys">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Element selectors</h1>
+
+        <div class="container" id="selectors-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-selectors">reset</button>
+          <button class="reload button" id="reload-selectors">reload</button>
+          <button class="save button" id="save-selectors">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Startup preferences</h1>
+        <div class="container" id="startup-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-startup">reset</button>
+          <button class="reload button" id="reload-startup">reload</button>
+          <button class="save button" id="save-startup">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">Keymaps</h1>
+        <div class="container" id="keymap-container">
+        </div>
+        <h3>
+          <button class="reset button" id="reset-keymaps">reset</button>
+          <button class="reload button" id="reload-keymaps">reload</button>
+          <button class="save button" id="save-keymaps">save</button>
+        </h3>
+      </div>
+
+      <div class="sect">
+        <h1 class="sect-title">JSON settings</h1>
+        <span class="no-top-buttons"></span>
+        <textarea id="json-settings">
+        </textarea>
+        <h3>
+          <button class="button reload" id="reload-json">reload</button>
+          <button class="button save" id="save-json">save</button>
+        </h3>
+        <div id="json-settings-errors">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

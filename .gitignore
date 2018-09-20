@@ -5,3 +5,4 @@ dist/*
 src/input-parser.js
 template/manual.html
 settings.html
+*.xpi

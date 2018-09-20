@@ -23,7 +23,8 @@ module.exports = function(grunt) {
             schema: './node_modules/ajv-cli/index.js compile --all-errors\
                        -s src/settings-schema.json  -o src/settings-validate.js',
             manual: 'pandoc -s --template=template/pandoc.html --toc --toc-depth=5 \
-                       --metadata=title:manual README.md > template/manual.html'
+                       --metadata=title:manual README.md > template/manual.html',
+            pack: 'zip -r -FS ./axes-webext.xpi css dist img lib settings manifest.json settings.html'
 	},
 
         browserify: {
@@ -119,4 +120,5 @@ module.exports = function(grunt) {
     grunt.registerTask('build',
                        ['dev', 'uglify']);
     grunt.registerTask('test', ['shell:schema', 'peg:inputDev', 'mochaTest:all']);
+    grunt.registerTask('pack', ['build', 'shell:pack']);
 };
