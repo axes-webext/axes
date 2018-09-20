@@ -20,7 +20,8 @@
     "jsdom-global": "3.0.2",
     "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
-    "proxyquire": "^2.1.0"
+    "proxyquire": "^2.1.0",
+    "sortablejs": "^1.7.0"
   },
   "dependencies": {},
   "scripts": {

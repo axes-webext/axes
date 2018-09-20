@@ -7,6 +7,7 @@ const validator = require('../../src/settings-validate');
 const addElementOptions = require('./element-options');
 const stringToRegExp = require('../../src/string-to-regexp');
 const { saveAs } = require('file-saver/FileSaver');
+const Sortable = require('sortablejs');
 
 // Syntactic sugar
 const $ = (s) => document.querySelector(s);

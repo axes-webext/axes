@@ -24,13 +24,22 @@ module.exports = function(grunt) {
                        -s src/settings-schema.json  -o src/settings-validate.js',
             manual: 'pandoc -s --template=template/pandoc.html --toc --toc-depth=5 \
                        --metadata=title:manual README.md > template/manual.html',
-            pack: 'zip -r -FS ./axes-webext.xpi css dist img lib settings manifest.json settings.html'
+            pack: 'zip -r -FS ./axes-webext.xpi css dist img lib settings manifest.json settings.html',
+            mousetrap: (() => {
+                const tag = '1.6.2';
+                return 'mkdir -p lib && cd lib && ' +
+                    'wget -nc https://github.com/ccampbell/mousetrap/raw/' + tag + '/mousetrap.min.js && ' +
+                    'wget -nc https://github.com/ccampbell/mousetrap/raw/' + tag + '/plugins/global-bind/mousetrap-global-bind.min.js && ' +
+                    'wget -nc https://github.com/ccampbell/mousetrap/raw/' + tag + '/plugins/record/mousetrap-record.min.js';
+
+            })(),
+
 	},
 
         browserify: {
             content: {
                 files: {
-                    'dist/content.js': ['src/content.js', 'lib/mousetrap.min.js'],
+                    'dist/content.js': ['lib/mousetrap.min.js', 'lib/mousetrap-global-bind.min.js', 'src/content.js'],
                 },
                 options: {
                     transform: transforms,
@@ -115,7 +124,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('manual', ['shell:manual', 'preprocess']);
     grunt.registerTask('dev',
-                       ['manual', 'shell:schema', 'peg:input', 'browserify:content',
+                       ['shell:mousetrap', 'manual', 'shell:schema', 'peg:input', 'browserify:content',
                         'browserify:settings', 'browserify:background']);
     grunt.registerTask('build',
                        ['dev', 'uglify']);
