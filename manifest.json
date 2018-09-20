@@ -22,9 +22,9 @@
 
     "browser_action": {
         "default_icon": {
-            "128": "img/icon.png"
+            "128": "img/button.png"
         },
-        "default_title": "Open settings"
+        "default_title": "axes: open settings"
     },
     "permissions": [
         "storage",

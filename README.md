@@ -309,7 +309,7 @@ Dependencies:
 - [grunt](https://gruntjs.com/) (tip: use local `./node_modules/grunt/bin/grunt` binary)
 - [pandoc](http://pandoc.org/) - to embed README.md into `settings.html`.
 
-`npm install && npm test && grunt build`
+Run `npm install && npm test && grunt pack` to get the .xpi file.
 
 ## Future plans
 
