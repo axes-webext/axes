@@ -1,0 +1,397 @@
+{
+    "type": "object",
+    "required": ["version", "labels", "hotkeys", "selectors", "modifiers", "autodetection", "startup_preferences",
+                 "keymap", "keymap_preferences", "autoclose_quotes", "autoclose_brackets", "input_top", "input_style", "input_container_style"],
+    "definitions": {
+        "actions": {
+            "$id": "/definitions/actions",
+            "$comment": "List of actions from actions.js; to update use Object.keys(require('./src/actions'))",
+            "enum":
+            [
+
+                "autodetect",
+                "show_help",
+                "click",
+                "open_in_new_tab",
+                "open_in_this_tab",
+                "remove",
+                "focus",
+                "trigger_events",
+                "set_value",
+                "download",
+                "copy_contents",
+                "toggle_pause",
+                "mute"
+            ]
+        }
+    },
+
+    "additionalProperties": false,
+    "properties": {
+        "version": {
+            "$id": "/properties/version",
+            "type": "number",
+            "minimum": 1,
+            "maximum": 1
+        },
+        "labels": {
+            "$id": "/properties/labels",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["alphabet", "font", "on_scroll", "exit_on_resize", "padding",
+                         "blink_interval", "stroke_styles",
+                         "fill_color", "text_color"],
+            "properties": {
+
+                "alphabet": {
+                    "$id": "/properties/labels/properties/alphabet",
+                    "type": "string",
+                    "title": "alphabet ",
+                    "pattern": "^[a-z0-9]+$",
+                    "default": "abcdefghijklmnopqrstuvwxyz0123456789",
+                    "minLength": 1,
+                    "examples": [
+                        "12px monospace"
+                    ]
+                },
+
+                "font": {
+                    "$id": "/properties/labels/properties/font",
+                    "type": "string",
+                    "title": "The Font_family Schema ",
+                    "default": "monospace",
+                    "examples": [
+                        "12px monospace"
+                    ]
+                },
+
+                "on_scroll": {
+                    "type": "string",
+                    "enum": [
+                        "prevent",
+                        "exit",
+                        "restore"
+                    ]
+                },
+
+                "exit_on_resize": {
+                    "type": "boolean",
+                    "default": false
+                },
+
+                "padding": {
+                    "$id": "/properties/labels/properties/padding",
+                    "type": "array",
+                    "title": "The Padding Schema",
+                    "default": [4, 3, 5, 3],
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                },
+
+                "blink_interval": {
+                    "$id": "/properties/labels/properties/blink_interval",
+                    "type": "integer",
+                    "title": "The Blink_interval Schema ",
+                    "default": 600,
+                    "minimum": 16,
+                    "examples": [
+                        600
+                    ]
+                },
+
+                "stroke_styles": {
+                    "$id": "/properties/labels/properties/stroke_tags_colors",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "selector": {
+                                "type": "string"
+                            },
+                            "style": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+
+                "fill_color": {
+                    "$id": "/properties/labels/properties/fill_color",
+                    "type": "string",
+                    "title": "The Fill_color Schema ",
+                    "default": "yellow",
+                    "examples": [
+                        "yellow"
+                    ]
+                },
+                "text_color": {
+                    "$id": "/properties/labels/properties/text_color",
+                    "type": "string",
+                    "title": "The Text_color Schema ",
+                    "default": "",
+                    "examples": [
+                        "#500"
+                    ]
+                }
+            }
+        },
+
+        "hotkeys": {
+            "$id": "/properties/hotkeys",
+            "type": "array",
+            "items": {
+
+                "$id": "/properties/hotkeys/items",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "binding": {
+                        "$id": "/properties/hotkeys/items/properties/binding",
+                        "type": "string",
+                        "title": "The Binding Schema ",
+                        "default": "",
+                        "examples": [
+                            "ctrl+e"
+                        ]
+                    },
+                    "action": {
+                        "$id": "/properties/hotkeys/items/properties/action",
+                        "type": "string",
+                        "title": "The Action Schema ",
+                        "enum": [
+                            "start-input",
+                            "start-instant",
+                            "clear-messages",
+                            "leave-focus",
+                            "turn-off",
+                            "turn-off-page",
+                            "turn-off-domain",
+                            "show-help"
+                        ],
+                        "examples": [
+                            "leave-focus"
+                        ]
+                    },
+                    "global": {
+                        "$id": "/properties/hotkeys/items/properties/global",
+                        "type": "boolean",
+                        "title": "The Global Schema ",
+                        "default": false,
+                        "examples": [
+                            true
+                        ]
+                    },
+                    "preventDefault": {
+                        "$id": "/properties/hotkeys/items/properties/preventDefaultxs",
+                        "type": "boolean",
+                        "$comment": "Prevent default action (e.g. typing)",
+                        "default": false,
+                        "examples": [
+                            true
+                        ]
+                    },
+                    "value": {
+                        "$id": "/properties/hotkeys/items/properties/value",
+                        "type": "string",
+                        "title": "The Value Schema ",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    }
+                }
+            }
+        },
+
+        "message_timeout": {
+            "$id": "/properties/message_timeout",
+            "$comment": "message timeout in ms., 0 = no timeout",
+            "type": "integer",
+            "title": "The Message_timeout Schema ",
+            "default": 7000,
+            "examples": [
+                7000
+            ]
+        },
+
+        "selectors": {
+            "$id": "/properties/selectors",
+            "type": "array",
+            "items": {
+                "$id": "/properties/selectors/items",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "pattern": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "selector": {
+                        "type": "string"
+                    },
+                    "action": {
+                        "type": "string",
+                        "enum": [
+                            "exclude",
+                            "include",
+                            "add",
+                            "set"
+                        ]
+                    }
+                }
+            }
+        },
+
+        "modifiers": {
+            "$id": "/properties/modifiers",
+            "type": "object",
+            "additionalProperties": false,
+
+            "required": [ "", "!", "@", "#", "$", "%", "^", "&",
+                          "*", "_", "+", "-", "=", "~", "\"", ";",
+                          ":", "\\", "|", "/", "?", ".", ">", "<", ","
+                        ],
+
+            "patternProperties": {
+                "^(!|@|#|\\$|%|\\^|&|\\*|_|\\+|-|=|~|\\\"|;|:|\\\\|\\||/|\\?|\\.|>|<|,|[a-z0-9]+)?$": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "action": {
+                                "$ref": "/definitions/actions"
+                            },
+                            "args": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "user_args": {
+                                "type": "string",
+                                "enum": [
+                                    "ignore",
+                                    "accept",
+                                    "append",
+                                    "prepend",
+                                    "warn",
+                                    "error"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "autodetection": {
+            "$id": "/properties/autodetection",
+            "type": "array",
+            "items": {
+                "$id": "/properties/autodetection/items",
+                "type": "object",
+                "properties": {
+                    "selector": {
+                        "$id": "/properties/autodetection/items/properties/selector",
+                        "type": "string",
+                        "title": "The Selector Schema ",
+                        "default": "",
+                        "examples": [
+                            "a[target=_blank]"
+                        ]
+                    },
+                    "action": {
+                        "$ref": "/definitions/actions"
+                    }
+                }
+            }
+        },
+
+        "startup_preferences": {
+            "$id": "/properties/startup_preferences",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "pattern": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "action": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+
+        "keymap": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            }
+        },
+
+        "keymap_preferences": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+
+        "autoclose_quotes": {
+            "type": "boolean"
+        },
+
+        "autoclose_brackets": {
+            "type": "boolean"
+        },
+
+        "input_top": {
+            "type": "boolean"
+        },
+
+        "input_style": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            }
+        },
+
+        "input_container_style": {
+            "type": "object",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

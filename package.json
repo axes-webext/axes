@@ -1,0 +1,28 @@
+{
+  "author": "klntsky",
+  "license": "Unlicense",
+  "repository": "gitlab:axes-webext/axes",
+  "devDependencies": {
+    "ajv-cli": "^3.0.0",
+    "canvas": "^1.6.12",
+    "delay": "^4.0.1",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-peg": "^2.0.1",
+    "grunt-preprocess": "^5.1.0",
+    "grunt-shell": "^2.1.0",
+    "grunt-wrap": "^0.3.0",
+    "jsdom": "12.0.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^5.2.0",
+    "mocha-jsdom": "^2.0.0",
+    "proxyquire": "^2.1.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  }
+}
