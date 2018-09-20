@@ -1,6 +1,6 @@
 # About
 
-`axes` is a [WebExtension](https://wiki.mozilla.org/WebExtensions) inspired by [Konqueror](https://konqueror.org/)'s "access keys" feature, [Uzbl Browser](https://www.uzbl.org/)'s "link following" feature and similar functionality available in [Vimperator](http://www.vimperator.org/vimperator/), [Vimium](https://vimium.github.io/), [Pentadactyl](https://addons.mozilla.org/en-US/firefox/addon/pentadactyl/) and [Tridactyl](https://github.com/cmcaine/tridactyl) addons.
+`axes` ([gitlab](https://gitlab.com/axes-webext/axes/) / [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/axes/)) is a [WebExtension](https://wiki.mozilla.org/WebExtensions) inspired by [Konqueror](https://konqueror.org/)'s "access keys" feature, [Uzbl Browser](https://www.uzbl.org/)'s "link following" feature and similar functionality available in [Vimperator](http://www.vimperator.org/vimperator/), [Vimium](https://vimium.github.io/), [Pentadactyl](https://addons.mozilla.org/en-US/firefox/addon/pentadactyl/) and [Tridactyl](https://github.com/cmcaine/tridactyl) addons.
 
 The general idea of all above is to show text labels near each document link, and when the user types the characters matching one of these labels, the appropriate link receives a click. This can save a lot of time, because the user don't have to switch between mouse and keyboard.
 
