@@ -55,10 +55,11 @@ module.exports = class InteractiveMode {
 
         input.focus();
 
-        window.addEventListener('DOMMouseScroll',
-                                { 'prevent': preventDefault,
-                                  'exit': this.exitHandler,
-                                  'restore': this.restoreHandler }[this.app.settings.labels.on_scroll]);
+        const scrollHandler = { 'prevent': preventDefault,
+                                'exit': this.exitHandler,
+                                'restore': this.restoreHandler }[this.app.settings.labels.on_scroll];
+        window.addEventListener('DOMMouseScroll', scrollHandler);
+        window.addEventListener('mousewheel', scrollHandler);
 
         window.addEventListener('resize',
                                 this.app.settings.labels.exit_on_resize ?
@@ -238,11 +239,15 @@ module.exports = class InteractiveMode {
     }
 
     disable () {
-        window.removeEventListener('DOMMouseScroll', preventDefault);
-        window.removeEventListener('DOMMouseScroll', this.restoreHandler);
-        window.removeEventListener('DOMMouseScroll', this.exitHandler);
-        window.removeEventListener('resize', this.exitHandler);
-        window.removeEventListener('resize', this.restoreHandler);
+        [
+            'DOMMouseScroll',
+            'mousewheel',
+            'resize'
+        ].map(evtName => [
+            preventDefault,
+            this.restoreHandler,
+            this.exitHandler
+        ].map(handler => window.removeEventListener(evtName, handler)));
 
         document.body.focus();
         this.input.onblur = undefined;
