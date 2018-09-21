@@ -152,8 +152,28 @@ describe('input-parser', () => {
 
             ['!1', [{ commands: [{ modifier: '!', args: []}],
                       target: { type: 'label', value: '1' }}]],
-            ['_[a-b\\c]', []],
-
+            ['_[a-b\\c]', [ {
+                "commands": [
+                    {
+                        "args": [],
+                        "modifier": "_"
+                    },
+                ],
+                "target": {
+                    "type": "intervals",
+                    "value": [
+                        {
+                            "min": {
+                                "from": "a",
+                                "to": "b",
+                                "type": "interval"
+                            },
+                            "sub": "c",
+                            "type": "exclude"
+                        }
+                    ]
+                }
+            } ]],
         ];
 
         tests.forEach(([input, expected]) => {
