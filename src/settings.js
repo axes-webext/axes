@@ -1,3 +1,4 @@
+var browser = require("webextension-polyfill");
 
 module.exports = {
     load: async function (reset = false) {

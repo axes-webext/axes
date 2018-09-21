@@ -212,7 +212,8 @@ module.exports = {
         borderTop: '4px solid white',
         height: '22px',
         overflow: 'hidden',
-        resize: 'none'
+        resize: 'none',
+        outlineWidth: '0',
     },
 
     input_container_style: {

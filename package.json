@@ -21,7 +21,8 @@
     "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
     "proxyquire": "^2.1.0",
-    "sortablejs": "^1.7.0"
+    "sortablejs": "^1.7.0",
+    "webextension-polyfill": "^0.3.1"
   },
   "dependencies": {},
   "scripts": {
