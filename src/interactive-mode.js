@@ -39,6 +39,8 @@ module.exports = class InteractiveMode {
             this.app.modeSwitcher.disable();
             setTimeout(() => this.app.modeSwitcher.enter(this.name), 1000);
         };
+
+        app.messages.clear();
     }
 
     setValue (value) {
