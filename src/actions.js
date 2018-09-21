@@ -364,7 +364,7 @@ const actions = {
             }
 
             if (finalValue !== null) {
-                if (['imageData'].includes(finalProperty)) {
+                if ('imageData' == finalProperty) {
                     await app.rpc.execute({ call: 'imageToClipboard',
                                             arguments: [finalValue]});
                 } else {
