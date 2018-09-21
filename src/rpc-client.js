@@ -1,3 +1,5 @@
+var browser = require("webextension-polyfill");
+
 module.exports = class RPCClient {
     constructor () {
         this.counter = 0;

@@ -1,6 +1,7 @@
 const { Runtime, RPCServer } = require('./rpc');
 const defaults = require('./default-settings');
 const settings = require('./settings');
+var browser = require("webextension-polyfill");
 
 /* Set settings to defaults on startup */
 browser.storage.local.get({ settings: null }).then(x => {

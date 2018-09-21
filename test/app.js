@@ -1,7 +1,11 @@
 const delay = require('delay');
 const proxyquire = require('proxyquire');
 const assert = require('assert');
-const reset = () => require('jsdom-global')();
+const reset = () => {
+    global.chrome = {};
+    require('jsdom-global')();
+};
+
 const trigger = (el, evtName, opts) => {
     el.dispatchEvent(new KeyboardEvent(evtName, opts));
 };
