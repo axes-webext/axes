@@ -152,6 +152,7 @@ describe('input-parser', () => {
 
             ['!1', [{ commands: [{ modifier: '!', args: []}],
                       target: { type: 'label', value: '1' }}]],
+            ['_[a-b\\c]', []],
 
         ];
 

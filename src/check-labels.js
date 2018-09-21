@@ -12,6 +12,7 @@ module.exports =
                 if (!labels.includes(string)) {
                     r.push(noLabel(string));
                 }
+                return [];
             },
 
             interval => {
@@ -19,15 +20,13 @@ module.exports =
                     .filter(x => !labels.includes(x))
                     .map(x => r.push(noLabel(x)));
 
-                if (r.length)
-                    return;
-
-                if (!fromInterval(labels)(interval).length) {
+                if (!r.length && !fromInterval(labels)(interval).length) {
                     r.push({
                         type: 'error',
                         text: `Label ${interval.to} does not follow up label ${interval.from}`
                     });
                 }
+                return [];
             }
         )(obj);
         return r;

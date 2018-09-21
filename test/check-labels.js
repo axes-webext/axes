@@ -11,6 +11,7 @@ describe('checkLabels', () => {
             ['a-z', true],
             ['a-y', false],
             ['y-z', false],
+            ['y-z\\c', false],
             ['asd', false],
             ['a', true],
         ];

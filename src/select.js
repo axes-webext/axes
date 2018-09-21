@@ -1,5 +1,4 @@
 module.exports = (value, interval) =>
-
     function select (obj) {
         if (obj instanceof Array) {
             return [].concat.apply([], obj.map(select));
