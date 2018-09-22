@@ -500,7 +500,7 @@ function loadHotkeys (settings) {
 
         const s = createElement('select');
         s.className = 'hotkey-action';
-        addOptionsToSelect(s, getHotkeyOptionsObj());
+        addOptionsToSelect(s, defs.hotkey_actions);
         s.value = action;
 
         const v = createElement('input');
@@ -509,14 +509,6 @@ function loadHotkeys (settings) {
         v.value = !!value ? value : '';
 
         return [b, new T4ble([[[c, l]], [[p, lp]]]), s, v, getRemoveButton({ title: 'Remove hotkey' })];
-    }
-
-    function getHotkeyOptionsObj () {
-        let r = {};
-        defs.hotkey_actions.forEach(
-            ([name, descr]) => r[name] = descr
-        );
-        return r;
     }
 
     let tbl = [];

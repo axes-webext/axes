@@ -1,15 +1,15 @@
 var defs = module.exports = {
     all_modifiers: [''].concat(Array.from('-_~|^=+*./%!@#$&;:>?"\\<,')),
-    hotkey_actions: [
-        ['start-input', 'Start input mode'],
-        ['start-instant', 'Start instant mode'],
-        ['clear-messages', 'Clear messages'],
-        ['leave-focus', 'Leave focused element'],
-        ['turn-off', 'Turn off until page reload'],
-        ['turn-off-page', 'Turn off on this page'],
-        ['turn-off-domain', 'Turn off on this domain'],
-        ['show-help', 'Show help']
-    ],
+    hotkey_actions: {
+        'start-input': 'Start input mode',
+        'start-instant': 'Start instant mode',
+        'clear-messages': 'Clear messages',
+        'leave-focus': 'Leave focused element',
+        'turn-off': 'Turn off until page reload',
+        'turn-off-page': 'Turn off on this page',
+        'turn-off-domain': 'Turn off on this domain',
+        'show-help': 'Show help',
+    },
 
     selector_actions: {
         'include': 'include selector',

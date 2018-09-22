@@ -254,6 +254,23 @@ Toggles `.muted` property. This action is for `<video>` and `<audio>` only.
 
 When the user pastes text into the input field, the text becomes automatically escaped, so the quotes never break.
 
+## List of default hotkeys
+
+Hotkey | Meaning | Global | Prevents default | Value
+---------|---------|------------|----------|---------
+`f` | Start input mode | false | true |
+`shift+f` | Start instant mode | false | true |
+`f2 c` | Clear messages | true | true |
+`f2 e` | Leave focused element | true | true |
+`f2 2` | Start input mode | true | true |
+`f2 f2` | Start instant mode | true | true |
+`f2 3` | Start instant mode | true | true | =
+`f2 o` | Turn off until page reload | true | true |
+`f2 p` | Turn off on this page | true | true |
+`f2 d` | Turn off on this domain | true | true |
+`f2 h` | Show help | true | true |
+
+
 ## List of default modifiers
 
 These are the defaults. If you are reading this guide inside the browser extension, refer to the actual settings.
