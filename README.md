@@ -113,6 +113,7 @@ There are six options described in the table below:
 `Warn` | Show warning while reading the input as the user types.
 `Reject` | Emit error so that it will not be possible to process the input.
 
+Default modifiers settings are listed [here](#list-of-default-modifiers).
 
 ## Action autodetection
 
@@ -133,6 +134,8 @@ At the hotkeys table, on the left there is a row of buttons containing key bindi
 "Prevent default" checkbox allows to suppress default effect of the hotkey (e.g. for 'ctrl+s' do not show dialog, for input fields do not change the value). However, it only affects the last key in a sequence.
 
 The last optional field only takes effect when used with `Enter mode` options. It can be used to set the initial value of the user input field, thus shortening the way to enter a specific event sequence by a few key presses.
+
+Default hotkeys are listed [here](#list-of-default-hotkeys).
 
 ## Element selectors
 
