@@ -12,47 +12,50 @@ const trigger = (el, evtName, opts) => {
 
 reset();
 
-describe('interactive scenarios', function () {
-    class MouseStub {
-        constructor () {
-            this.bs = {};
-        }
-        bind (key, f) {
-            this.bs[key] = f;
-        }
-        bindGlobal (key, f) {
-        }
-        unbind(key) {
-        }
-        trigger (key) {
-            let evt = document.createEvent("HTMLEvents");
-            evt.initEvent("keyup", false, true);
-            document.body.dispatchEvent(evt);
-            this.bs[key](evt);
-        }
-    };
+/** A fake mousetrap class with additional .trigger method used for testing. */
+class MouseStub {
+    constructor () {
+        this.bs = {};
+    }
+    bind (key, f) {
+        this.bs[key] = f;
+    }
+    bindGlobal (key, f) {
+    }
+    unbind(key) {
+    }
+    trigger (key) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("keyup", false, true);
+        document.body.dispatchEvent(evt);
+        this.bs[key](evt);
+    }
+};
 
-    global.Mousetrap = new MouseStub();
-    const App = () => proxyquire('../src/content.js', {
-        './settings': {
-            load: async function (reset = false) {
-                let r = require('../src/default-settings');
-                r.modifiers['click'] = [ { action: 'click',
-                                           user_args: 'ignore',
-                                           args: [] } ];
-                return r;
-            }
-        },
-        './rpc-client': class RPCClientStub {
-            constructor () {
-            }
-            execute(message) {
-                return new Promise((resolve, reject) => {
-                    reject();
-                });
-            }
+global.Mousetrap = new MouseStub();
+
+const App = () => proxyquire('../src/content.js', {
+    './settings': {
+        load: async function (reset = false) {
+            let r = require('../src/default-settings');
+            r.modifiers['click'] = [ { action: 'click',
+                                       user_args: 'ignore',
+                                       args: [] } ];
+            return r;
         }
-    });
+    },
+    './rpc-client': class RPCClientStub {
+        constructor () {
+        }
+        execute(message) {
+            return new Promise((resolve, reject) => {
+                reject();
+            });
+        }
+    }
+});
+
+describe('interactive scenarios', function () {
 
     describe('element presence', () => {
         it('entering input-mode adds textarea', () => {
@@ -98,16 +101,21 @@ describe('interactive scenarios', function () {
 
 
     describe('labels', () => {
-        it('works', () => {
+        it('works with `click` modifier and one label', () => {
+
             reset();
             document.body.innerHTML = '<a style="display:block">foo</a><a style="display:block">bar</a>';
+
             let flag = false;
             const l = document.createElement('a');
+
             l.style.display = 'block';
             l.onclick = () => flag = true;
             document.body.appendChild(l);
+
             const init = App();
             let app = null;
+
             return init.then(a => { app = a; Mousetrap.trigger('shift+f'); }).then(() => {
                 return delay(100);
             }).then(() => {
@@ -135,6 +143,56 @@ describe('interactive scenarios', function () {
                 return delay(100);
             }).then(() => {
                 assert.equal(flag, true, 'click event should happen');
+            });
+        });
+
+        it('works with `click` modifier and multiple labels', () => {
+            reset();
+            document.body.innerHTML = '';
+
+            const flags = [];
+            (new Array(10).fill(null)).forEach((_, i) => {
+                const l = document.createElement('a');
+                l.style.display = 'block';
+                l.onclick = () => flags[i] = true;
+                flags[i] = false;
+                document.body.appendChild(l);
+            });
+
+            const init = App();
+            let app = null;
+
+            return init.then(a => { app = a; Mousetrap.trigger('shift+f'); }).then(() => {
+                return delay(100);
+            }).then(() => {
+                Object.defineProperties(window.HTMLElement.prototype, {
+                    offsetLeft: {
+                        get: function() { return parseFloat(window.getComputedStyle(this).marginLeft) || 0; }
+                    },
+                    offsetTop: {
+                        get: function() { return parseFloat(window.getComputedStyle(this).marginTop) || 0; }
+                    },
+                    offsetHeight: {
+                        get: function() { return 50; }
+                    },
+                    offsetWidth: {
+                        get: function() { return 50; }
+                    }
+                });
+
+                Element.prototype.getBoundingClientRect = function () {
+                    return { bottom: 100, height: 100, left: 100, right: 100, top: 100, width: 100 };
+                };
+
+                let el = app.selectorProcessor.getElements()[0];
+                app.modeSwitcher.currentMode.labelManager.addLabels();
+                app.modeSwitcher.currentMode.input.value = '[a-c,g,h-j\\i]';
+                trigger(app.modeSwitcher.currentMode.input, 'keyup', { key: 'enter', shiftKey: false, ctrlKey: false });
+                return delay(100);
+            }).then(() => {
+                assert.deepStrictEqual(flags,
+                                       // a    b     c      d     e       f     g      h      i      j
+                                       [true, true, true, false, false, false, true, true, false, true], 'click events should happen');
             });
         });
     });
