@@ -139,7 +139,8 @@ module.exports = {
         '|': [ { action: 'set_value',        user_args: 'accept', args: [] }],
         '^': [ { action: 'focus',            user_args: 'ignore', args: [] }],
         ',': [ { action: 'click',            user_args: 'ignore', args: [] }],
-        '=': [ { action: 'copy_contents',    user_args: 'ignore', args: ['value', 'textContent'] }],
+        '=': [ { action: 'copy_contents',    user_args: 'prepend', args:['value', 'textContent'] }],
+        '\\':[ { action: 'copy_contents',    user_args: 'prepend', args:['innerHTML'] }],
         '+': [ { action: 'copy_contents',    user_args: 'prepend', args:['href', 'src'] }],
         '*': [ { action: 'copy_contents',    user_args: 'prepend', args:['imageData'] }],
         '.': [ { action: 'copy_contents',    user_args: 'prepend', args:['originalDataURL'] }],
@@ -156,7 +157,6 @@ module.exports = {
                { action: 'focus',            user_args: 'ignore', args: [] }],
         '?': [ { action: 'show_help',        user_args: 'ignore', args: [] }],
 
-        '\\':[],
         '"': [],
         '<': [],
 

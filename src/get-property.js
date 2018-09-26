@@ -9,7 +9,7 @@ async function getProperty (element, props = ['value', 'src', 'href', 'textConte
     }
 
     for (let prop of props) {
-        if (['value', 'src', 'href', 'textContent', 'currentSrc'].includes(prop)) {
+        if (['value', 'src', 'href', 'textContent', 'innerHTML', 'currentSrc'].includes(prop)) {
             if (typeof element[prop] != 'undefined') {
                 r.value = element[prop];
                 r.property = prop;
@@ -60,6 +60,6 @@ async function getProperty (element, props = ['value', 'src', 'href', 'textConte
     return r;
 }
 
-getProperty.supportedProps = ['value', 'src', 'href', 'textContent', 'imageData', 'dataURL', 'originalDataURL'];
+getProperty.supportedProps = ['value', 'src', 'href', 'textContent', 'innerHTML', 'imageData', 'dataURL', 'originalDataURL'];
 
 module.exports = getProperty;

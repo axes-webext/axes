@@ -288,6 +288,7 @@ Modifier | Meaning
 `^` | Focus element
 `,` | Click
 `=` | Copy contents (value, textContent)
+`\` | Copy contents (innerHTML)
 `+` | Copy contents (href, src)
 `*` | Copy contents (imageData)
 `.` | Copy contents (originalDataURL)
@@ -302,9 +303,8 @@ Modifier | Meaning
 `:` | Download url (saveAs)
 `>` | Set value, Focus element
 `?` | Show help
-`\` | 
-`"` | 
-`<` | 
+`"` |
+`<` |
 `` `nt` `` | Open in new tab
 `` `it` `` | Open in new tab (inactive)
 `` `sv` `` | Set value
