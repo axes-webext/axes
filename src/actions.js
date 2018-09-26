@@ -375,8 +375,17 @@ const actions = {
                     document.execCommand("copy");
                     input.remove();
                 }
+
+                const slice = (str, n) => {
+                    if (str.length <= n) {
+                        return str;
+                    } else {
+                        return str.substr(0, n) + '…';
+                    }
+                };
+
                 app.messages.add({ type: 'info',
-                                   text: `Copied ${finalProperty}` });
+                                   text: `Copied property ${finalProperty} to clipboard: ${slice(finalValue, 50)}` });
             } else {
                 app.messages.add({ type: 'warning',
                                    text: "'Copy contents': no contents to copy" });
