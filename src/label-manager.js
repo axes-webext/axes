@@ -35,12 +35,13 @@ module.exports = class LabelManager {
 
         function isVisible (pos) {
             const w = window.innerWidth,
-                  h = window.innerHeight;
+                  h = window.innerHeight,
+                  min = 5;
             return pos.x < w &&
-                   pos.x > 0 &&
+                   pos.x + pos.w > min &&
                    pos.y < h &&
-                   pos.y > 0 &&
-                   pos.h > 5 && pos.w > 5;
+                   pos.y + pos.h > min &&
+                   pos.h > min && pos.w > min;
         }
 
         let elements = [];
