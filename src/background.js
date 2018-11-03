@@ -40,3 +40,10 @@ browser.runtime.onConnect.addListener(port => {
 browser.browserAction.onClicked.addListener(() => {
     browser.runtime.openOptionsPage();
 });
+
+/* Open settings page after installation */
+browser.runtime.onInstalled.addListener(details => {
+    if (details.reason == "install") {
+        browser.runtime.openOptionsPage();
+    }
+});
