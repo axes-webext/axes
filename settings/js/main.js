@@ -6,7 +6,6 @@ const defs = require('./defs');
 const validator = require('../../src/settings-validate');
 const addElementOptions = require('./element-options');
 const stringToRegExp = require('../../src/string-to-regexp');
-const { saveAs } = require('file-saver/FileSaver');
 const Sortable = require('sortablejs');
 
 // Syntactic sugar
@@ -157,10 +156,29 @@ function addEventListeners () {
         }
     });
 
-    $('#backup-download').addEventListener('click', downloadBackup);
+    $('#backup-download').addEventListener('click', async function () {
+        // Note: the limit here is about 2MB
+        const settings = await Settings.load(true),
+              blob = new Blob([JSON.stringify(settings, null, 4)],
+                              { type: 'application/json;charset=utf-8' }),
+              filename = 'axes-config-' + new Date().toISOString().substr(0, 10) + '.json',
+              url = URL.createObjectURL(blob),
+              id = await browser.downloads.download({ saveAs: false, url, filename });
+
+        const handler = item => {
+            if (item.id == id && item.state.current == 'complete') {
+                browser.downloads.onChanged.removeListener(handler);
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        browser.downloads.onChanged.addListener(handler);
+    });
+
     $('#backup-upload').addEventListener('click', () => {
         $('#backup-upload-input').click();
     });
+
     $('#backup-upload-input').addEventListener('change', evt => {
         const reader = new FileReader();
         reader.onload = async evt => {
@@ -805,12 +823,6 @@ function updateJSONError (error, container) {
     }
 }
 
-async function downloadBackup () {
-    const settings = await Settings.load(true);
-    const blob = new Blob([JSON.stringify(settings, null, 4)],
-                          { type: "text/plain;charset=utf-8" });
-    saveAs(blob, 'axes-config-' + new Date().toISOString().substr(0, 10) + '.json');
-}
 
 /* Helper functions */
 
