@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+function getVersion () {
+    return JSON.parse(fs.readFileSync('./manifest.json')).version;
+}
+
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     // grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -25,6 +31,8 @@ module.exports = function(grunt) {
             manual: 'pandoc -s --template=template/pandoc.html --toc --toc-depth=5 \
                        --metadata=title:manual README.md > template/manual.html',
             pack: 'zip -r -FS ./axes-webext.xpi css dist img lib settings manifest.json settings.html',
+            // Create source archive suitable for uploading to mozilla's extension review system.
+            'pack-source': 'zip -r -FS ./source-' + getVersion() + '.zip css Gruntfile.js img lib package.json package-lock.json README.md scripts settings src template test',
             mousetrap: (() => {
                 const tag = '1.6.2';
                 return 'mkdir -p lib && cd lib && ' +
@@ -130,4 +138,5 @@ module.exports = function(grunt) {
                        ['dev', 'uglify']);
     grunt.registerTask('test', ['shell:schema', 'peg:inputDev', 'mochaTest:all']);
     grunt.registerTask('pack', ['build', 'shell:pack']);
+    grunt.registerTask('pack-source', ['build', 'shell:pack-source']);
 };

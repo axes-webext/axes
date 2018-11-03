@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "axes",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Makes the Web keyboard-accessible.",
     "icons": {
         "128": "img/icon.png"
